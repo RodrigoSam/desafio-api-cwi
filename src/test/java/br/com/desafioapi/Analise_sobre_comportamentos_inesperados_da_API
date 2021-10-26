@@ -1,4 +1,4 @@
-Registro sobre comportamentos que não estão de acordo com que a documentação propõe:
+Registro sobre comportamentos que não estão de acordo com o que a documentação propõe:
 End-point bookings:
 >Pode se constatar o seguinte comportamento na classe GetBookingTest, no teste testSearchForAnIdWithParameterNameCheckInAndCheckout():
 

@@ -26,7 +26,7 @@ public class GetBookingRequest  {
 
     @Step("Retorna Id de reservas utilizando parâmetros para criar um filtro")
     public Response getReturnIdWithFilter(String key, String value,String keyTwo, String valueTwo){
-          return given().log().all()
+          return given()
                 .queryParams(key,value,keyTwo,valueTwo)
                 .when()
                 .get("booking");
@@ -51,8 +51,6 @@ public class GetBookingRequest  {
                 .get("booking");
 
     }
-
-
 
     }
 
