@@ -1,4 +1,4 @@
-package br.com.desafioapi.tests.runner;
+package br.com.desafioapi.runner;
 
 import br.com.desafioapi.tests.booking.tests.PutBookingTest;
 import org.junit.experimental.categories.Categories;

@@ -13,6 +13,7 @@ public class GetBookingRequest  {
                 .when()
                 .get("booking");
 
+
     }
 
     @Step("Retorna uma reserva usando a url + id como parâmetro")

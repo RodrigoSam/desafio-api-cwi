@@ -33,40 +33,4 @@ public class PutBookingRequest {
 
     }
 
-    @Step("Tenta atualizar uma Reserva específica sem utilizar um token")
-    public Response requestChangeAReservationWithoutToken(int id, String token){
-        return given()
-                .header("Cookie", "")
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .when()
-                .body(bookingPayLoads.payLoadChangeBooking().toString())
-                .put("booking/" +id);
-
-    }
-
-    @Step("Tenta atualizar uma Reserva específica utilizando um token inválido")
-    public Response requestChangeAReservationInvalidToken(int id, String token) {
-        return given()
-                .header("Cookie", token)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .when()
-                .body(bookingPayLoads.payLoadChangeBooking().toString())
-                .put("booking/" + id);
-
-    }
-
-    @Step("Tenta atualizar uma Reserva inexistente")
-    public Response requestTryingToChangeABookingThatDoesntExist(String token) {
-        return given()
-                .header("Content-Type", "application/json")
-                .header("Accept", "application/json")
-                .header("Cookie", token)
-                .when()
-                .body(bookingPayLoads.payLoadValidBooking().toString())
-                .put("booking/" + "2");
-
-    }
-
     }

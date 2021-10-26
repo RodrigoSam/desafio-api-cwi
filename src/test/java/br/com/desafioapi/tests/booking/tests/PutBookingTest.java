@@ -71,7 +71,7 @@ public class PutBookingTest extends BaseTest {
                 .statusCode(200)
                 .extract()
                 .path("[0].bookingid");
-        putBookingRequest.requestChangeAReservationWithoutToken(primeiroId,"")
+        putBookingRequest.updateBookingToken(primeiroId,"")
                 .then()
                 .statusCode(403)
                 .time(lessThan(4L),TimeUnit.SECONDS);
@@ -80,7 +80,7 @@ public class PutBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category({AllTests.class, SecurityTests.class})
+    @Category({SecurityTests.class})
     @DisplayName("Alterar uma reserva utilizando um Token inválido, espera-se um retorno 403(Forbidden)")
     public void testChangeABookingWithInvalidToken(){
         int primeiroId = getBookingRequest.bookingReturnIds()
@@ -88,7 +88,7 @@ public class PutBookingTest extends BaseTest {
                 .statusCode(200)
                 .extract()
                 .path("[0].bookingid");
-        putBookingRequest.requestChangeAReservationInvalidToken(primeiroId,"hdlfasjfjagajasj")
+        putBookingRequest.updateBookingToken(primeiroId,"hdlfasjfjagajasj")
                 .then()
                 .statusCode(403)
                 .time(lessThan(4L),TimeUnit.SECONDS);
@@ -97,10 +97,11 @@ public class PutBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Category({AllTests.class, AcceptanceTests.class})
+    @Category({AcceptanceTests.class})
     @DisplayName("Alterar uma reserva que não existe, espera-se um retorno 405(Method Not Allowed)")
     public void testChangeANonExistentBooking(){
-        putBookingRequest.requestTryingToChangeABookingThatDoesntExist(postAuthRequest.getToken())
+       int nonexistentId= 9999;
+        putBookingRequest.updateBookingToken(nonexistentId,postAuthRequest.getToken())
                 .then()
                 .statusCode(405)
                 .time(lessThan(4L), TimeUnit.SECONDS);

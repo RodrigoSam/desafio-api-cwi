@@ -22,7 +22,7 @@ public class DeleteBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category({AllTests.class, SmokeTests.class})
+    @Category({SmokeTests.class})
     @DisplayName("Excluir uma Reserva utilizando um token válido")
     public void deleteBooking() {
         int primeiroId = getBookingRequest.bookingReturnIds()
@@ -39,10 +39,10 @@ public class DeleteBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Category({AllTests.class, AcceptanceTests.class})
+    @Category({AcceptanceTests.class})
     @DisplayName("Excluir uma Reserva não existente, retorno esperado 405(Method Not Allowed)")
-    public void deleteANonExistentBooking() {
-        int primeiroId = 1;
+    public void testDeleteANonExistentBooking() {
+        int primeiroId = 9999;
         deleteBookingRequest.deleteBooking(primeiroId, postAuthRequest.getToken())
                 .then()
                 .statusCode(405);
@@ -51,10 +51,10 @@ public class DeleteBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category({AllTests.class, AcceptanceTests.class})
+    @Category({AcceptanceTests.class})
     @DisplayName("Excluir uma Reserva sem autorização, retorno esperado 403(Forbidden)")
 
-    public void deleteReservationWithoutAuthorization() {
+    public void testDeleteReservationWithoutAuthorization() {
         int primeiroId = getBookingRequest.bookingReturnIds()
                 .then()
                 .statusCode(200)
