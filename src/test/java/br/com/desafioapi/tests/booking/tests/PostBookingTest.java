@@ -1,6 +1,10 @@
 package br.com.desafioapi.tests.booking.tests;
 
 import br.com.desafioapi.base.BaseTest;
+import br.com.desafioapi.suites.AcceptanceTests;
+import br.com.desafioapi.suites.AllTests;
+import br.com.desafioapi.suites.SecurityTests;
+import br.com.desafioapi.suites.SmokeTests;
 import br.com.desafioapi.tests.booking.requests.PostBookingRequest;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
@@ -14,13 +18,14 @@ import java.util.concurrent.TimeUnit;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
+
 @Feature("Feature - Criação de novas Reservas na Api")
 public class PostBookingTest extends BaseTest {
     PostBookingRequest postBookingRequest = new PostBookingRequest();
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category({})
+    @Category({AllTests.class, SmokeTests.class})
     @DisplayName("Criar  uma nova Reserva")
     public void testCreateANewBooking() {
         Response response = postBookingRequest.requestNewBooking();
@@ -33,7 +38,7 @@ public class PostBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category({})
+    @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Validar um retorno 500 quando o payload da Reserva estiver inválido")
       public void testCreateBookingWithError() {
       Response response = postBookingRequest.requestNewBookingInvalidPayload();
@@ -45,8 +50,8 @@ public class PostBookingTest extends BaseTest {
     }
 
     @Test
-    @Severity(SeverityLevel.BLOCKER)
-    @Category({})
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class,SmokeTests.class})
     @DisplayName("Validar a criação de mais de uma Reserva em sequência")
     public void testCreateMoreThanOneReservationInARow() {
 
@@ -63,26 +68,25 @@ public class PostBookingTest extends BaseTest {
     }
 
     @Test
-    @Severity(SeverityLevel.BLOCKER)
-    @Category({})
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Fazer uma reserva passando parâmetros a mais no payload")
     public void testMakeAReservationWithMoreParametersOnPayload(){
         Response response = postBookingRequest.requesMakeAReservationWithMoreParametersOnPayload();
         response.then()
                 .statusCode(200)
-                .body("size()", greaterThan(0))
-                .log().all();
+                .body("size()", greaterThan(0));
+
         System.out.println("teste está passando mesmo com parâmetros nao previstos na documentacao, retornando 200, quando deveria retornar um 400 badrequest");
 
     }
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category({})
+    @Category({AllTests.class, SecurityTests.class})
     @DisplayName("Validar retorno 418 quando o header Accept for invalido")
     public void testBookWithoutAccept(){
         postBookingRequest.requestBookWithoutAccept("hhg")
                 .then()
-                .log().all()
                 .statusCode(418)
                 .time(lessThan(4L),TimeUnit.SECONDS);
 

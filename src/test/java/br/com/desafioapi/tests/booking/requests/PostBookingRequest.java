@@ -36,7 +36,6 @@ public class PostBookingRequest {
         return given()
                 .header("Content-Type", "application/json")
                 .when()
-                .log().all()
                 .body(bookingPayLoads.createReservationWithMoreParametersThanAllowed().toString())
                 .post("booking");
 
@@ -48,7 +47,6 @@ public class PostBookingRequest {
                 .header("Accept",acceptHeader)
                 .header("Content-Type","application/json")
                 .when()
-                .log().all()
                 .body(bookingPayLoads.payLoadValidBooking().toString())
                 .post("booking");
 

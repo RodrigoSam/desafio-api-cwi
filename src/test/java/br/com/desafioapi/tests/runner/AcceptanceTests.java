@@ -1,7 +1,5 @@
 package br.com.desafioapi.tests.runner;
 
-
-import br.com.desafioapi.tests.auth.tests.PostAuthTest;
 import br.com.desafioapi.tests.booking.tests.DeleteBookingTest;
 import br.com.desafioapi.tests.booking.tests.GetBookingTest;
 import br.com.desafioapi.tests.booking.tests.PostBookingTest;
@@ -11,14 +9,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Categories.class)
-@Categories.IncludeCategory(br.com.desafioapi.suites.SmokeTests.class)
+@Categories.IncludeCategory(br.com.desafioapi.suites.AcceptanceTests.class)
 @Suite.SuiteClasses({
-        PostAuthTest.class,
-        DeleteBookingTest.class,
+    AcceptanceTests.class,
+    DeleteBookingTest.class,
         GetBookingTest.class,
         PostBookingTest.class,
         PutBookingTest.class
 
+
 })
-public class SmokeTests {
+public class AcceptanceTests {
 }

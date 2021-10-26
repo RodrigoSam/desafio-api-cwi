@@ -1,8 +1,7 @@
 package br.com.desafioapi.tests.booking.tests;
 
 import br.com.desafioapi.base.BaseTest;
-import br.com.desafioapi.suites.AllTests;
-import br.com.desafioapi.suites.ContractTests;
+import br.com.desafioapi.suites.*;
 import br.com.desafioapi.tests.booking.requests.GetBookingRequest;
 import br.com.desafioapi.tests.booking.requests.PostBookingRequest;
 import br.com.desafioapi.utils.Utils;
@@ -28,7 +27,7 @@ public class GetBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category({AllTests.class})
+    @Category({AllTests.class, SmokeTests.class})
     @DisplayName("Listar Ids de reservas")
     public void testValidatesBookingIdList() {
 
@@ -54,8 +53,8 @@ public class GetBookingTest extends BaseTest {
     }
 
     @Test
-    @Severity(SeverityLevel.NORMAL)
-    @Category({})
+    @Severity(SeverityLevel.BLOCKER)
+    @Category({AllTests.class,SmokeTests.class})
     @DisplayName("Listar um Id específico")
     public void testSearchForASpecificId() {
         int primeiroId = getBookingRequest.bookingReturnIds()
@@ -73,8 +72,8 @@ public class GetBookingTest extends BaseTest {
     }
 
     @Test
-    @Severity(SeverityLevel.NORMAL)
-    @Category({})
+    @Severity(SeverityLevel.BLOCKER)
+    @Category({AllTests.class, ContractTests.class})
     @DisplayName("Garantir o Schema de retorno de uma reserva específica")
     public void testValidateSchemaOfASpecificId() {
         int primeiroId = getBookingRequest.bookingReturnIds()
@@ -91,8 +90,8 @@ public class GetBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Category({})
-    @DisplayName("Listar um Id utilizando o filtro fistname")
+    @Category({AllTests.class,SmokeTests.class})
+    @DisplayName("Listar um Id utilizando o filtro firstname")
     public void testSearchForIdWithFilterFirstName() {
     Response response = postBookingRequest.requestNewBooking();
                  given()
@@ -112,11 +111,11 @@ public class GetBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Category({})
+    @Category({AllTests.class,SmokeTests.class})
     @DisplayName("Listar um Id utilizando o filtro lastname")
     public void testSearchForIdWithFilterLastName() {
         Response response = postBookingRequest.requestNewBooking();
-        given()
+                given()
                 .contentType("application/json")
                 .get("booking");
 
@@ -133,11 +132,11 @@ public class GetBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Category({})
+    @Category({AllTests.class,SmokeTests.class})
     @DisplayName("Listar um Id utilizando o filtro checkin")
     public void testSearchForIdWithFilterCheckIn() {
         Response response = postBookingRequest.requestNewBooking();
-        given()
+                given()
                 .contentType("application/json")
                 .get("booking");
 
@@ -154,13 +153,12 @@ public class GetBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Category({})
+    @Category({AllTests.class,SmokeTests.class})
     @DisplayName("Listar um Id utilizando o filtro checkout")
     public void testSearchForIdWithFilterCheckOut() {
         Response response = postBookingRequest.requestNewBooking();
-        given()
+                 given()
                 .contentType("application/json")
-                .log().all()
                 .get("booking");
 
         JsonPath extractor = response.jsonPath();
@@ -176,7 +174,7 @@ public class GetBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Category({})
+    @Category({AllTests.class,SmokeTests.class})
     @DisplayName("Listar um Id utilizando duas datas checkout")
     public void testSearchForAnIdWithFilterCheckOutAndCheckOut() {
 
@@ -190,7 +188,7 @@ public class GetBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Category({})
+    @Category({AllTests.class,SmokeTests.class})
     @DisplayName("Listar um Id utilizando o filtro  name,checkin e checkout")
     public void testSearchForAnIdWithParameterNameCheckInAndCheckout() {
 
@@ -205,8 +203,8 @@ public class GetBookingTest extends BaseTest {
         System.out.println("filtro checkout está com erro, de acordo com a documentacao deveria aceitar datas maiores ou iguais mas so busca as iguais ");
     }
     @Test
-    @Severity(SeverityLevel.BLOCKER)
-    @Category({})
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Passar um filtro checkin mal formatado e verificar se a Api retorna o erro 500(Internal Server Error) conforme o esperado")
     public void testReturnErrorWithBadFilter(){
         getBookingRequest.getReturnIdWithBadFilter("checkin","2017-31-12")

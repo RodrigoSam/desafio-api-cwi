@@ -1,7 +1,9 @@
 package br.com.desafioapi.tests.booking.tests;
 
 import br.com.desafioapi.base.BaseTest;
+import br.com.desafioapi.suites.AcceptanceTests;
 import br.com.desafioapi.suites.AllTests;
+import br.com.desafioapi.suites.SmokeTests;
 import br.com.desafioapi.tests.auth.requests.PostAuthRequest;
 import br.com.desafioapi.tests.booking.requests.DeleteBookingRequest;
 import br.com.desafioapi.tests.booking.requests.GetBookingRequest;
@@ -19,9 +21,9 @@ public class DeleteBookingTest extends BaseTest {
     DeleteBookingRequest deleteBookingRequest = new DeleteBookingRequest();
 
     @Test
-    @Severity(SeverityLevel.NORMAL)
-    @Category(AllTests.class)
-    @DisplayName("Excluir uma Reserva somente utilizando token")
+    @Severity(SeverityLevel.BLOCKER)
+    @Category({AllTests.class, SmokeTests.class})
+    @DisplayName("Excluir uma Reserva utilizando um token válido")
     public void deleteBooking() {
         int primeiroId = getBookingRequest.bookingReturnIds()
                 .then()
@@ -37,7 +39,7 @@ public class DeleteBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Category(AllTests.class)
+    @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Excluir uma Reserva não existente, retorno esperado 405(Method Not Allowed)")
     public void deleteANonExistentBooking() {
         int primeiroId = 1;
@@ -49,8 +51,8 @@ public class DeleteBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category(AllTests.class)
-    @DisplayName("Excluir uma Reserva se autorização, retorno esperado 403(Forbidden)")
+    @Category({AllTests.class, AcceptanceTests.class})
+    @DisplayName("Excluir uma Reserva sem autorização, retorno esperado 403(Forbidden)")
 
     public void deleteReservationWithoutAuthorization() {
         int primeiroId = getBookingRequest.bookingReturnIds()

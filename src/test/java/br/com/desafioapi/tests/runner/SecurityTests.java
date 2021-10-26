@@ -1,14 +1,16 @@
 package br.com.desafioapi.tests.runner;
 
+import br.com.desafioapi.tests.booking.tests.PutBookingTest;
 import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Categories.class)
-@Categories.IncludeCategory(br.com.desafioapi.suites.AcceptanceTest.class)
+@Categories.IncludeCategory(br.com.desafioapi.suites.SecurityTests.class)
 @Suite.SuiteClasses({
-    AcceptanceTest.class
+        PutBookingTest.class
+
 
 })
-public class AcceptanceTest {
+public class SecurityTests {
 }

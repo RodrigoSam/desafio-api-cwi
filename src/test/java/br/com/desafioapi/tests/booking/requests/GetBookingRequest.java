@@ -11,7 +11,6 @@ public class GetBookingRequest  {
     public Response bookingReturnIds(){
         return  given()
                 .when()
-                .log().all()
                 .get("booking");
 
     }

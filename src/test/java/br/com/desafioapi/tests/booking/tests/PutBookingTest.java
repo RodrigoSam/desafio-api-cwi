@@ -1,7 +1,10 @@
 package br.com.desafioapi.tests.booking.tests;
 
 import br.com.desafioapi.base.BaseTest;
+import br.com.desafioapi.suites.AcceptanceTests;
 import br.com.desafioapi.suites.AllTests;
+import br.com.desafioapi.suites.SecurityTests;
+import br.com.desafioapi.suites.SmokeTests;
 import br.com.desafioapi.tests.auth.requests.PostAuthRequest;
 import br.com.desafioapi.tests.booking.requests.GetBookingRequest;
 import br.com.desafioapi.tests.booking.requests.PutBookingRequest;
@@ -24,7 +27,7 @@ public class PutBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category(AllTests.class)
+    @Category({AllTests.class, SmokeTests.class})
     @DisplayName("Alterar uma reserva usando o token")
     public void testValidateChangingABookingUsingToken(){
         int primeiroId = getBookingRequest.bookingReturnIds()
@@ -42,7 +45,7 @@ public class PutBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category(AllTests.class)
+    @Category({AllTests.class,SmokeTests.class})
     @DisplayName("Alterar uma reserva usando o Basic Auth")
     public void testeValidateChangingABookingUsingBasicAuth(){
         int primeiroId = getBookingRequest.bookingReturnIds()
@@ -60,7 +63,7 @@ public class PutBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category(AllTests.class)
+    @Category({AllTests.class, SecurityTests.class})
     @DisplayName("Alterar uma reserva sem usar o Token, espera-se um retorno 403(Forbidden)")
     public void testChangeAReservationWithoutToken(){
         int primeiroId = getBookingRequest.bookingReturnIds()
@@ -77,7 +80,7 @@ public class PutBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category(AllTests.class)
+    @Category({AllTests.class, SecurityTests.class})
     @DisplayName("Alterar uma reserva utilizando um Token inválido, espera-se um retorno 403(Forbidden)")
     public void testChangeABookingWithInvalidToken(){
         int primeiroId = getBookingRequest.bookingReturnIds()
@@ -94,7 +97,7 @@ public class PutBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Category(AllTests.class)
+    @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Alterar uma reserva que não existe, espera-se um retorno 405(Method Not Allowed)")
     public void testChangeANonExistentBooking(){
         putBookingRequest.requestTryingToChangeABookingThatDoesntExist(postAuthRequest.getToken())

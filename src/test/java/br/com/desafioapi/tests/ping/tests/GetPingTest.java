@@ -21,14 +21,12 @@ public class GetPingTest extends BaseTest {
     @Severity(SeverityLevel.BLOCKER)
     @Category({AllTests.class})
     @DisplayName("Verificar se a Api está online")
-    public void validaApiOnLine(){
+    public void testOnLineAPITestValidation(){
 
         getPingRequest.pingReturnApi()
                 .then()
                 .statusCode(201)
                 .time(lessThan(8L), TimeUnit.SECONDS);
-        System.out.println("Status Code ok");
-        System.out.println("API respondendo dentro do time esperado ok");
 
     }
 

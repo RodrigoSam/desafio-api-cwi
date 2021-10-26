@@ -1,4 +1,4 @@
 package br.com.desafioapi.suites;
 
-public interface SecurityTest {
+public interface SecurityTests {
 }

@@ -2,6 +2,7 @@ package br.com.desafioapi.tests.runner;
 
 import br.com.desafioapi.tests.auth.tests.PostAuthTest;
 import br.com.desafioapi.tests.booking.tests.GetBookingTest;
+import br.com.desafioapi.tests.booking.tests.PostBookingTest;
 import br.com.desafioapi.tests.booking.tests.PutBookingTest;
 import br.com.desafioapi.tests.ping.tests.GetPingTest;
 import org.junit.experimental.categories.Categories;
@@ -15,7 +16,9 @@ import org.junit.runners.Suite;
         GetPingTest.class,
         GetBookingTest.class,
         PostAuthTest.class,
-        PutBookingTest.class
+        PutBookingTest.class,
+        PostBookingTest.class
+
 
 })
 public class AllTests {
