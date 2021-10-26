@@ -13,11 +13,16 @@ import org.junit.runners.Suite;
 @Categories.IncludeCategory(br.com.desafioapi.suites.AllTests.class)
 @Suite.SuiteClasses({
 
-        GetPingTest.class,
+     /*   GetPingTest.class,
         GetBookingTest.class,
         PostAuthTest.class,
         PutBookingTest.class,
-        PostBookingTest.class
+        PostBookingTest.class,*/
+        AcceptanceTests.class,
+        ContractTests.class,
+        SecurityTests.class,
+        SmokeTests.class
+
 
 
 })

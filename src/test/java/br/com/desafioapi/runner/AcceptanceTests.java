@@ -19,5 +19,5 @@ import org.junit.runners.Suite;
 
 
 })
-public class AcceptanceTests {
+public class AcceptanceTests{
 }
