@@ -24,7 +24,7 @@ public class DeleteBookingTest extends BaseTest {
     @Severity(SeverityLevel.BLOCKER)
     @Category({SmokeTests.class})
     @DisplayName("Excluir uma Reserva utilizando um token válido")
-    public void deleteBooking() {
+    public void testeDeleteBooking() {
         int primeiroId = getBookingRequest.bookingReturnIds()
                 .then()
                 .statusCode(200)
@@ -34,6 +34,7 @@ public class DeleteBookingTest extends BaseTest {
         deleteBookingRequest.deleteBooking(primeiroId, postAuthRequest.getToken())
                 .then()
                 .statusCode(201);
+
 
     }
 

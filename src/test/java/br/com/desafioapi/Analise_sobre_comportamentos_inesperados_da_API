@@ -1,0 +1,37 @@
+Registro sobre comportamentos que não estão de acordo com que a documentação propõe:
+End-point bookings:
+>Pode se constatar o seguinte comportamento na classe GetBookingTest, no teste testSearchForAnIdWithParameterNameCheckInAndCheckout():
+
+*Ao utilizar o filtro checkin date consta na documentação a seguinte especificação:
+"Return bookings that have a checkin date greater than or equal to the set checkin date. Format must be CCYY-MM-DD", em tradução livre,
+"Retorne as reservas com uma data de check-in maior ou igual à data de check-in definida. O formato deve ser CCYY-MM-DD",
+porém quando foi verificado esse comportamento na prática, verificou-se que a função que deveria retornar as Reservas com datas iguais (equals) a data solicitada não está habilitada,
+retornando somente as reservas com datas maiores (greater than) a data solicitada pelo filtro, caracterizando assim uma quebra de contrato.
+
+*Ao utilizar o filtro checkout date consta na documentação a seguinte especificação:
+"Return bookings that have a checkout date greater than or equal to the set checkout date. Format must be CCYY-MM-DD", em tradução livre,
+"Retorne as reservas com uma data de check-out maior ou igual à data de check-out definida. O formato deve ser CCYY-MM-DD ",
+porém quando foi verificado esse comportamento na prática, verificou-se que a função que deveria retornar as Reservas com datas maiores (greater than) a data solicitada não está habilitada,
+retornando somente as reservas com datas iguais (equals) a data solicitada pelo filtro, caracterizando assim uma quebra de contrato.
+
+>Pode se constatar o seguinte comportamento na classe PostBookingTest, no teste testCreateBookingWithError():
+
+*Ao tentar criar uma nova reserva passando um payload fora dos padrões exigidos conforme a documentação da Api, espera-se um retorno do tipo 500 (Internal server error),
+porém a api retorna um 200(Ok) e uma mensagem de erro "invalid data", formando assim um conflito e ficando em desconformidade com o padrão do Status code.
+$ Sugestão de aprimoramento: nesse caso retornar um status code (400 bad request), indicando o erro na solicitação.
+
+>Pode se constatar o seguinte comportamento na classe PostBookingTest, no teste testMakeAReservationWithMoreParametersOnPayload():
+
+*Ao solicitar a criação de uma nova Reserva passando parâmetros a mais no payload da request, observo que a reserva é feita com sucesso retornando um status code 200 (ok),
+porém ao meu ver deveria retornar um status code 400(bad request), já que o padrão do payload na request não foi atendido.
+$ Sugestão de aprimoramento: Nesse caso retornar um erro 400(bad request), informando o usuário a inconformidade de sua solicitação.
+
+>Pode se constatar o seguinte comportamento na classe DeleteBookingTest, no teste testeDeleteBooking():
+
+*Ao solicitar a exclusão de uma Reserva passando o parâmetro Id, quando a reserva é excluída com sucesso recebemos um retorno 201 (Created).
+$ Sugestão de aprimoramento: Utilizar um retorno do tipo 200 (ok).
+
+
+
+
+
