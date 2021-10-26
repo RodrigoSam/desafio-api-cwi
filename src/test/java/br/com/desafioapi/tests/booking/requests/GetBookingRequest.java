@@ -26,7 +26,7 @@ public class GetBookingRequest  {
 
     @Step("Retorna Id de reservas utilizando parâmetros para criar um filtro")
     public Response getReturnIdWithFilter(String key, String value,String keyTwo, String valueTwo){
-          return given()
+          return given().log().all()
                 .queryParams(key,value,keyTwo,valueTwo)
                 .when()
                 .get("booking");
@@ -43,12 +43,17 @@ public class GetBookingRequest  {
     }
 
     @Step("Visualizar erro de servidor 500 quando enviar filtro mal formatado")
-    public Response getReturnIdWithBadFilter(String key, String value){
+    public Response getReturnIdWithBadFilter(String key, String value,String keyTwo, String valueTwo){
         return given()
                 .queryParams(key,value)
+                .queryParam(keyTwo,valueTwo)
                 .when()
                 .get("booking");
 
     }
 
-}
+
+
+    }
+
+

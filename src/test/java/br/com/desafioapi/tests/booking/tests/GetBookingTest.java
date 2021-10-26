@@ -175,25 +175,26 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({SmokeTests.class})
-    @DisplayName("Listar um Id utilizando duas datas checkout")
+    @DisplayName("Listar um Id utilizando duas datas checkout, esperasse um retorno 500(Internal Server Error) ")
     public void testSearchForAnIdWithFilterCheckOutAndCheckOut() {
 
-        getBookingRequest.getReturnIdWithFilter("checkout","2019-01-01","checkout","2021-08-18")
+        getBookingRequest.getReturnIdWithBadFilter("checkout","2019-01-01","checkout","2021-08-18")
                 .then()
-                .statusCode(200)
-                .body("bookingid", notNullValue())
-                .body("firstname",notNullValue());
+                .statusCode(500)
+                .time(lessThan(4L),TimeUnit.SECONDS);
 
     }
 
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({SmokeTests.class})
-    @DisplayName("Listar um Id utilizando o filtro  name,checkin e checkout")
+    @DisplayName("Listar um Id utilizando o filtro name, checkin e checkout")
 
-    //Utilizei uma data menor a que eu queria buscar no filtro checkin pois percebi conflito quanto a documentação,
-    // conforme documentei na File "Analise_sobre_comportamentos_inesperados_e_sugestoes_de_aprimoramento_da_API, no end-point booking"
-    // No filtro checkout também encontrei comportamento incompatível documentado na File "Analise_sobre_comportamentos_inesperados_e_sugestoes_de_aprimoramento_da_API, no end-point booking no end-point booking".
+    // Utilizei uma data menor a que eu queria buscar no filtro checkin pois percebi conflito quanto a documentação,
+    // conforme documentei na File "Analise_sobre_comportamentos_inesperados_e_sugestoes_de_aprimoramento_da_API, no end-point booking."
+    // No filtro checkout também encontrei comportamento incompatível,
+    // documentado na File "Analise_sobre_comportamentos_inesperados_e_sugestoes_de_aprimoramento_da_API, no end-point booking no end-point booking".
+
     public void testSearchForAnIdWithParameterNameCheckInAndCheckout() {
         getBookingRequest.getReturnIdFilterNameCheckInAndCheckOut("firstname","Jim","lastname","Brown",
                         "checkin","2017-12-31","checkout","2019-01-01")
@@ -208,7 +209,7 @@ public class GetBookingTest extends BaseTest {
     @Category({AcceptanceTests.class})
     @DisplayName("Passar um filtro checkin mal formatado e verificar se a Api retorna o erro 500(Internal Server Error) conforme o esperado")
     public void testReturnErrorWithBadFilter(){
-        getBookingRequest.getReturnIdWithBadFilter("checkin","2017-31-12")
+        getBookingRequest.getReturnIdWithBadFilter("checkin","2017-31-12","","")
                 .then()
                 .statusCode(500)
                 .time(lessThan(8L), TimeUnit.SECONDS);
